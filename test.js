@@ -1,23 +1,18 @@
 /* eslint-disable indent */
- let numberOfFilms ;
-function start(){
-     numberOfFilms = +prompt('How many films have you seen arleady?', '');
-    while(numberOfFilms==''|| numberOfFilms ==null||isNaN(numberOfFilms)){
-        numberOfFilms = +prompt('How many films have you seen arleady?', '');
-    }
-}
-start();
+
 
 const personalMovieDB =  {
-	count: numberOfFilms,
+	count: 0,
 	movies: {},
 	actors: {},
 	genres:[],
-	private: false
-};
-
-
-function rememberMyFilms() {
+	private: false,
+    start: function(){
+        personalMovieDB.count = +prompt('How many films have you seen arleady?', '');
+       while(personalMovieDB==''|| personalMovieDB ==null||isNaN(personalMovieDB)) {
+           personalMovieDB = +prompt('How many films have you seen arleady?', '');
+       }
+   },rememberMyFilms: function() {
     for (let i = 0; i < 2; i++) {
         const a = prompt('What film you have watched last?', '').trim(),
             b = prompt('how you can rate it?', '');
@@ -30,10 +25,8 @@ function rememberMyFilms() {
             i--;
         }
     }
-}
-rememberMyFilms();
-
-function detectedPersonaleLevel() {
+},
+detectedPersonaleLevel:function() {
     if (personalMovieDB.count < 10) {
         console.log('you are gay');
     } else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
@@ -45,38 +38,28 @@ function detectedPersonaleLevel() {
     }
 
 
-}
-detectedPersonaleLevel();
-
-function showMyDB(hidden) {
+},
+showMyDB:function(hidden) {
     if (!hidden) {
         console.log(personalMovieDB);
-
     }
-}
-showMyDB(personalMovieDB.privat);
-
-function writeYourGenres() {
-    for (let i = 1; i <= 3; i++) {
-
-        personalMovieDB.genres[i - 1] = prompt(`What is yours favorite genre?${i}`);
-    }
-}
-writeYourGenres(); 
- 
- /*     let num;
-    let volume;
-    let square;
-    function calculateVolumeAndArea() {
-        num=+prompt('put cube length','');
-        volume=num*num*num;
-        square =(num*num)*6;
-        if(volume==0 || volume<0||square==0||square<0){
-            console.log('this is error');
-        } else  console.log('this your volume of cube',volume,'this is cube square',square);
-       
-    }
-    calculateVolumeAndArea(num); 
-
-     */
-
+    },toggleVisibleMyDB:function(){
+        if(personalMovieDB.private){
+            personalMovieDB.private=false;
+        } else{
+            personalMovieDB.private=true;
+        }
+    }, 
+     writeYourGenres:function() {
+        for (let i = 1; i <= 3; i++) {
+    let genre =prompt(`What is yours favorite genre?${i}`);
+    if(genre===''|| genre==null){
+        console.log('erorr');
+        i--;
+    } else{
+            personalMovieDB.genres[i - 1] = genre;
+              }      }
+              personalMovieDB.genres.forEach((item,i) =>{ console.log(`your favorite genre ${i+1} - this ${item}`); } );
+            
+            }
+};
